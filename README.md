@@ -71,11 +71,16 @@ Events: `MessageSent`, `MessageDelivered`, `MessageBounced`, `MessageComplained`
 
 ## Using the API directly
 
+The facade is the full PHP client: messages (with paging and search), cancel and suppressions. See the [outbox-php README](https://github.com/Outbox-Stack/outbox-php#readme).
+
 ```php
 use Outbox\Laravel\Facades\Outbox;
 
 Outbox::send(['from' => 'app@your-verified-domain.com', 'to' => 'ada@example.com', 'subject' => 'Hi', 'text' => 'Hello']);
 Outbox::getMessage($id);
+Outbox::cancelMessage($id);                       // queued messages only
+foreach (Outbox::iterateMessages(status: 'bounced') as $m) { /* … */ }
+Outbox::addSuppression('ada@example.com');
 ```
 
 ## Configuration

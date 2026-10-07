@@ -13,7 +13,7 @@
     "homepage": "https://outboxstack.app/docs",
     "require": {
         "php": "^8.2",
-        "getoutbox/outbox-php": "^0.1",
+        "getoutbox/outbox-php": "^0.2",
         "illuminate/contracts": "^11.0 || ^12.0 || ^13.0",
         "illuminate/http": "^11.0 || ^12.0 || ^13.0",
         "illuminate/mail": "^11.0 || ^12.0 || ^13.0",
