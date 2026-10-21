@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.3.0
+
+- New `MessageDeferred` event for `message.deferred` webhooks (soft bounces and delivery delays). Before, these events weren't sent at all; don't treat them as bounces.
+
 ## 0.2.0
 
 - Requires `getoutbox/outbox-php` ^0.2. The `Outbox` facade now covers message paging (`listMessagesPage`, `iterateMessages`, `to` and `after` filters), `cancelMessage`, and the suppression methods.
