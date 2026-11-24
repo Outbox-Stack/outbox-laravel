@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.4.0
+
+- Requires `getoutbox/outbox-php` ^0.3. The `Outbox` facade's message list methods take `stream`.
+- New `MessageSuppressed` event for `message.suppressed` webhooks: the message was held back and never sent. `data()['reason']` is a suppression reason or `known_dead_address`; `data()['description']` says why.
+
 ## 0.3.0
 
 - New `MessageDeferred` event for `message.deferred` webhooks (soft bounces and delivery delays). Before, these events weren't sent at all; don't treat them as bounces.

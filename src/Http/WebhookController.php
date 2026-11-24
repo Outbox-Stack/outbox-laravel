@@ -19,6 +19,7 @@ final class WebhookController
         'message.delivered' => Events\MessageDelivered::class,
         'message.bounced' => Events\MessageBounced::class,
         'message.deferred' => Events\MessageDeferred::class,
+        'message.suppressed' => Events\MessageSuppressed::class,
         'message.complained' => Events\MessageComplained::class,
         'message.failed' => Events\MessageFailed::class,
         'message.opened' => Events\MessageOpened::class,

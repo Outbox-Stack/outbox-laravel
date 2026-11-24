@@ -6,6 +6,7 @@ namespace Outbox\Laravel\Tests;
 
 use Illuminate\Support\Facades\Event;
 use Outbox\Laravel\Events\MessageBounced;
+use Outbox\Laravel\Events\MessageSuppressed;
 use Outbox\Laravel\Events\WebhookReceived;
 
 final class WebhookTest extends TestCase
@@ -28,6 +29,14 @@ final class WebhookTest extends TestCase
         $this->signedPost($body)->assertOk()->assertJson(['received' => true]);
         Event::assertDispatched(MessageBounced::class, fn (MessageBounced $e) => $e->email() === 'ada@example.com' && $e->metadata() === ['order_id' => '42'] && $e->messageId() === 'm1');
         Event::assertDispatched(WebhookReceived::class);
+    }
+
+    public function testSuppressedWebhookDispatchesMessageSuppressed(): void
+    {
+        Event::fake([MessageSuppressed::class]);
+        $body = json_encode(['type' => 'message.suppressed', 'created_at' => '2026-11-24T10:00:00Z', 'data' => ['message_id' => 'm2', 'to' => 'gone@example.com', 'reason' => 'known_dead_address', 'description' => 'Not sent.']]);
+        $this->signedPost($body)->assertOk();
+        Event::assertDispatched(MessageSuppressed::class, fn (MessageSuppressed $e) => $e->messageId() === 'm2' && $e->data()['reason'] === 'known_dead_address');
     }
 
     public function testBadSignaturesAndStaleTimestampsAreRejected(): void

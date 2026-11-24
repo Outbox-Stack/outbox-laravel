@@ -67,7 +67,7 @@ Event::listen(function (MessageBounced $event) {
 });
 ```
 
-Events: `MessageSent`, `MessageDelivered`, `MessageBounced` (hard bounce, final), `MessageDeferred` (soft bounce or delay, not final), `MessageComplained`, `MessageFailed`, `MessageOpened`, `MessageClicked`, `ContactSubscribed`, `ContactUnsubscribed`, plus `WebhookReceived` for every event. Each has `type()`, `data()`, `messageId()`, `email()`, `metadata()` and the raw `payload`. The route has no CSRF or session middleware; requests are authenticated by signature.
+Events: `MessageSent`, `MessageDelivered`, `MessageBounced` (hard bounce, final), `MessageDeferred` (soft bounce or delay, not final), `MessageSuppressed` (held back and never sent; `data()['reason']` and `data()['description']` say why), `MessageComplained`, `MessageFailed`, `MessageOpened`, `MessageClicked`, `ContactSubscribed`, `ContactUnsubscribed`, plus `WebhookReceived` for every event. Each has `type()`, `data()`, `messageId()`, `email()`, `metadata()` and the raw `payload`. The route has no CSRF or session middleware; requests are authenticated by signature.
 
 ## Using the API directly
 
